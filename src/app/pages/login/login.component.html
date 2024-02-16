@@ -1,0 +1,23 @@
+<div class="body">
+    <div class="login">
+        <div class="loginForm">
+            <img src="/assets/icons/b-icon.png">
+            <p>Silahkan masukan Cashier ID dan sandi.</p>
+            <br>
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+                <span class="p-float-label">
+                    <input pInputText name="cashierId" id="cashierId" [(ngModel)]="cashierId" required/>
+                    <label for="cashierId">Email</label>
+                </span>
+                <br>
+                <span class="p-float-label">
+                    <input pInputText name="password" id="password" type="password" [(ngModel)]="password" required/>
+                    <label for="password">Sandi</label>
+                </span>
+                <br>
+                <p-button type="submit" label="Masuk" [rounded]="true" [disabled]="!loginForm.valid" (click)="onSubmit(loginForm)"></p-button>
+            </form>
+        </div>
+    </div>
+    <div class="logo"></div>
+</div>

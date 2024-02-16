@@ -1,0 +1,52 @@
+<!-- <mat-sidenav-container>
+    <mat-sidenav mode="side" [opened]="true" fixedInViewport="true">
+        <div class="logo">
+            <img src="/assets/b-icon.png" alt="icon">
+        </div>
+        <mat-nav-list>
+            <a mat-list-item>
+                <span class="entry">
+                    <img src="/assets/dashboard-icon.svg">
+                    <span>Dashboard</span>
+                </span>
+            </a>
+            <a mat-list-item>
+                <span class="entry">
+                    <img src="/assets/agent-icon.svg">
+                    <span>Agent</span>
+                </span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<!-- <div id="mySidenav" class="sidenav">
+    <a href="" class="logo">
+        <img src="/assets/icons/b-icon.png">
+    </a>
+    <a routerLink="/dashboard" routerLinkActive="active">
+        <img src="/assets/icons/dashboard-icon.svg">
+        <div>Dashboard</div>
+    </a>
+    <a routerLink="/agent" routerLinkActive="active">
+        <img src="/assets/icons/agent-icon.svg">
+        Agent
+    </a>
+</div> -->
+
+<p-sidebar [visible]="true" [modal]="false" [showCloseIcon]="false" styleClass="sidenav">
+    <ng-template pTemplate="header"><img src="/assets/icons/b-icon.png"></ng-template>
+    <ng-template pTemplate="body">
+        <p-panelMenu [model]="items"></p-panelMenu>
+    </ng-template>
+</p-sidebar>
+
+<p-sidebar [visible]="true" [modal]="false" [showCloseIcon]="false" styleClass="rightBar" position="right">
+</p-sidebar>
+
+<div id="main">
+    <router-outlet></router-outlet>
+</div>

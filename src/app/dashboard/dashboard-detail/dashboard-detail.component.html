@@ -1,0 +1,71 @@
+<p-button label="Filter" [outlined]="true" (click)="filterBar = true"/>
+<p-sidebar [(visible)]="filterBar" position="right">
+    <h3>Filter</h3>
+    <form #filterForm="ngForm" (ngSubmit)="applyFilter()">
+        <span class="p-float-label">
+            <input type="text" pInputText name="agentId" id="agentId" [(ngModel)]="agentIdFilter" />
+            <label for="agentId">Agent ID</label>
+        </span>
+        <p-dropdown name="rekonFilter" id="rekonFilter" [options]="rekonFilter" [(ngModel)]="selectedRekonFilter" optionLabel="option" [showClear]="true" placeholder="Status Rekon"></p-dropdown>
+        <p-button type="submit" label="Terapkan Filter" [rounded]="true" (click)="applyFilter()"></p-button>
+    </form>
+</p-sidebar>
+
+<p-table *ngIf="details" [value]="details" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50, 100]"
+    [tableStyle]="{ 'min-width': '2315px' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Agen ID</th>
+            <th>Nama Agen</th>
+            <th>Total Transaksi Agen</th>
+            <th>Total Setor ke CRM</th>
+            <th>Total Titipan Kasir</th>
+            <th>Saldo Agent</th>
+            <th>Uang Kurang</th>
+            <th>Setor 100rb (lembar)</th>
+            <th>Setor 50rb (lembar)</th>
+            <th>Status Rekon Depo</th>
+            <th>Status Saldo Agent</th>
+            <th>Status Akhir</th>
+            <th>Action</th>
+            <th>Tanggal</th>
+            <th>Approval</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-details let-ri="rowIndex">
+        <tr>
+            <td>{{ details.agentId }}</td>
+            <td>{{ details.agentName }}</td>
+            <td>{{ details.agentTotalTrans }}</td>
+            <td>{{ details.crmTotal }}</td>
+            <td>{{ details.cashierTotal }}</td>
+            <td>{{ details.agentBalance }}</td>
+            <td>{{ details.agentMinus }}</td>
+            <td>{{ details.depo100 }}</td>
+            <td>{{ details.depo50 }}</td>
+            <td>
+                <p-tag *ngIf="details.depoStatus === 'Tanpa Selisih'" severity="success" [rounded]="true"
+                    value="{{ details.depoStatus }}">
+                </p-tag>
+                <p-tag *ngIf="details.depoStatus === 'Selisih'" severity="danger" [rounded]="true"
+                    value="{{ details.depoStatus }}">
+                </p-tag>
+            </td>
+            <td>
+                <p-tag *ngIf="details.balanceStatus === 'Balance'" severity="success" [rounded]="true"
+                    value="{{ details.balanceStatus }}">
+                </p-tag>
+                <p-tag *ngIf="details.balanceStatus === 'Tidak Balance'" severity="danger" [rounded]="true"
+                    value="{{ details.balanceStatus }}">
+                </p-tag>
+            </td>
+            <td>{{ details.finalStatus }}</td>
+            <td>
+                <p-button *ngIf="details.isOpen === true && details.approval === ''" type="button" label="Close"
+                    [outlined]="true" (click)="closeData(ri)"></p-button>
+            </td>
+            <td>{{ details.date | date : 'dd MMMM yyyy HH:mm:ss'}}</td>
+            <td>{{ details.approval }}</td>
+        </tr>
+    </ng-template>
+</p-table>

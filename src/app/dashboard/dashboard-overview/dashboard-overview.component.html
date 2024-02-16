@@ -1,0 +1,18 @@
+<!-- <div class="card-data">
+    <div class="card" *ngFor="let overview of overview">
+        <div class="title">{{ overview.name }}</div>
+        <div class="content">{{ overview.isCurrency == true ? ( overview.value | currency:'Rp':'symbol':'3.0') : (
+            overview.value ) }}</div>
+    </div>
+</div> -->
+
+<div class="card-data">
+    <div *ngFor="let overview of overview" style="width: max-content;">
+        <p-card [header]=overview.name>
+            <p class="m-0">
+                {{ overview.isCurrency == true ? ( overview.value | currency:'Rp':'symbol':'3.0') : (
+                overview.value ) }}
+            </p>
+        </p-card>
+    </div>
+</div>

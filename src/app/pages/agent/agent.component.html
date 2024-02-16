@@ -1,0 +1,78 @@
+<p-button label="Filter" [outlined]="true" (click)="filterBar = true"/>
+<p-sidebar [(visible)]="filterBar" position="right">
+<h3>Filter</h3>
+    <form #filterForm="ngForm" (ngSubmit)="applyFilter()">
+        <span class="p-float-label">
+            <input type="text" pInputText name="agentId" id="agentId" [(ngModel)]="agentIdFilter" />
+            <label for="agentId">ID Agen</label>
+        </span>
+        <br>
+        <span class="p-float-label">
+            <input type="text" pInputText name="agentName" id="agentName" [(ngModel)]="agentNameFilter" />
+            <label for="agentId">Nama Agen</label>
+        </span>
+        <br>
+        <span class="p-float-label">
+            <input type="text" pInputText name="agentPhoneNumber" id="agentPhoneNumber" [(ngModel)]="agentPhoneNumberFilter" />
+            <label for="agentId">No. HP</label>
+        </span>
+        <br>
+        <p-button type="submit" label="Terapkan Filter" [rounded]="true" (click)="applyFilter()"></p-button>
+    </form>
+</p-sidebar>
+
+<p-button label="Upload File" [rounded]="true" (click)="uploadBar = true"/>
+<p-sidebar [(visible)]="uploadBar" position="right">
+    <h3>Upload</h3>
+    <p>Silahkan memilih kategori terlebih dahulu, kemudian upload file data untuk menambah data</p>
+    <p-dropdown name="uploadCategory" id="uploadCategory" [options]="uploadCategory"
+        [(ngModel)]="selectedUploadCategory" optionLabel="option" [showClear]="true" placeholder="Kategori">
+    </p-dropdown>
+    <p>Upload Data</p>
+    <input type="file" (change)="onFileUpload($event)" accept=".csv">
+</p-sidebar>
+
+<p-table *ngIf="agents" [value]="agents" [tableStyle]="{ 'min-width': '1630px' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID Agen</th>
+            <th>Nama Agen</th>
+            <th>Device ID Agen</th>
+            <th>No. HP Agen</th>
+            <th>Email Agen</th>
+            <th>Depo ID</th>
+            <th>Rekening Escrow</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Tanggal Dibuat</th>
+            <th>Dibuat Oleh</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-agents let-ri="rowIndex">
+        <tr>
+            <td style="font-weight: bold;">{{ agents.agentId }}</td>
+            <td>{{ agents.agentName }}</td>
+            <td>{{ agents.agentDeviceId }}</td>
+            <td>{{ agents.agentPhoneNumber }}</td>
+            <td>{{ agents.agentEmail }}</td>
+            <td>{{ agents.agentDepoId }}</td>
+            <td>{{ agents.agentEscrowAccount }}</td>
+            <td>{{ agents.agentrole }}</td>
+            <td>
+                <p-tag *ngIf="agents.agentStatus === 'Active'" [rounded]="true" value="{{ agents.agentStatus }}">
+                </p-tag>
+                <p-tag *ngIf="agents.agentStatus === 'Locked' || agents.agentStatus === 'Blocked'" severity="danger"
+                    [rounded]="true" value="{{ agents.agentStatus }}">
+                </p-tag>
+                <p-tag *ngIf="agents.agentStatus === 'Pending Activation' || agents.agentStatus === 'Pending Escrow'" severity="warning"
+                    [rounded]="true" value="{{ agents.agentStatus }}">
+                </p-tag>
+                <p-tag *ngIf="agents.agentStatus === 'Inactive'" severity="info"
+                    [rounded]="true" value="{{ agents.agentStatus }}">
+                </p-tag>
+            </td>
+            <td>{{ agents.agentDateCreated | date : 'dd MMMM yyyy HH:mm:ss'}}</td>
+            <td>{{ agents.agentCreatedBy }}</td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,15 @@
+.sidenav.p-sidebar {
+  width: 228px;
+}
+
+.rightBar.p-sidebar {
+  width: 63px;
+}
+
+#main {
+  height: 100%;
+  padding: 20px;
+  margin-left: 228px;
+  margin-right: 63px;
+  background: rgba(247, 248, 250, 1);
+}
